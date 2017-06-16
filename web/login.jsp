@@ -6,7 +6,7 @@
         <title>Login page</title>
     </head>
     <body>
-        <form action="/library/login    "> 
+        <form action="/library/login"> 
             Please enter your username <input type="text" name="username"/><br> 
             Please enter your password <input type="text" name="password"/> 
             <input type="submit" value="submit"> 

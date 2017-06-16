@@ -32,6 +32,8 @@ public class UserEntity implements Serializable {
     private String password;
     
     private String email;
+    
+    private Boolean valid;
 
     public String getUsername() {
         return username;
@@ -72,6 +74,15 @@ public class UserEntity implements Serializable {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public Boolean isValid() {
+        return valid;
+    }
+
+    public void setValid(Boolean valid) {
+        this.valid = valid;
+    }
+    
     
 
     public Long getId() {
@@ -104,7 +115,7 @@ public class UserEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "PkProject.DAO.NewEntity[ id=" + id + " ]";
+        return "PkProject.DAO.NewEntity[ id=" + id + " ][ username=" +username+ " ] ";
     }
     
 }

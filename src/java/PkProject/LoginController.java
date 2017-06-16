@@ -1,5 +1,7 @@
 package PkProject;
 
+import PkProject.DAO.UserDAO;
+import PkProject.Entity.UserEntity;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -31,19 +33,19 @@ public class LoginController extends HttpServlet {
             
             String username = request.getParameter("username");
             String password = request.getParameter("password");
-            
-            
-            if (!username.isEmpty() && !password.isEmpty()) {
+//            
+//            
+            if (username != null && password != null && !username.isEmpty() && !password.isEmpty()) {
+                user.setPassword(request.getParameter("password"));
+                user.setUsername(request.getParameter("username"));
                 
-                
+                user = UserDAO.login(user);
+                return;
             }
+//            
             
             
             
-            user.setPassword(request.getParameter("password"));
-            user.setUsername(request.getParameter("username"));
-            
-            if ()
             
             response.sendRedirect("login.jsp");
             return;
@@ -70,7 +72,7 @@ public class LoginController extends HttpServlet {
         processRequest(request, response);
     }
 
-    /**
+    /** 
      * Handles the HTTP <code>POST</code> method.
      *
      * @param request servlet request
