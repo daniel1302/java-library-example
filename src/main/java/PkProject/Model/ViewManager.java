@@ -20,9 +20,9 @@ public class ViewManager {
     
     public void render(String jspFile, Map<String, String> parameters) {
         if (parameters != null) {
-            parameters.keySet().forEach((key) -> {
-                request.setAttribute(key, parameters.get(key));
-            });
+//            parameters.keySet().forEach((key) -> {
+//                request.setAttribute(key, parameters.get(key));
+//            });
         }
         
         try {
