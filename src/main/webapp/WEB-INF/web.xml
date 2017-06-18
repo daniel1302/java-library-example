@@ -2,11 +2,11 @@
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <servlet>
         <servlet-name>LoginController</servlet-name>
-        <servlet-class>PkProject.LoginController</servlet-class>
+        <servlet-class>PkProject.Controller.LoginController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>RegisterController</servlet-name>
-        <servlet-class>PkProject.RegisterController</servlet-class>
+        <servlet-class>PkProject.Controller.RegisterController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ProfileController</servlet-name>
@@ -15,7 +15,7 @@
     <servlet>
         <description>Index</description>
         <servlet-name>IndexController</servlet-name>
-        <servlet-class>PkProject.IndexController</servlet-class>
+        <servlet-class>PkProject.Controller.IndexController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>

@@ -1,0 +1,18 @@
+{% extends "../main.html.twig" %}
+{% block body %}
+    {% if registerErrors is defined %}
+        {% for error in registerErrors %}
+            
+        {% endfor %}
+    {% endif %}
+    
+    <form method="POST" action="register">
+        Imie: <input type="text" name="firstname"><br>
+        Nazwisko: <input type="text" name="surname"><br>
+        Login: <input type="text" name="username"><br>
+        E-mail: <input type="text" name="email"><br>
+        Hasło: <input type="password" name="pass"><br>
+        Powtórz hasło: <input type="password" name="pass2"><br>
+        <input type="submit" value="Potwierdź" />
+    </form>
+{% endblock %}
