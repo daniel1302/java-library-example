@@ -69,7 +69,7 @@ abstract public class AbstractController extends HttpServlet implements Controll
         return "Short description";
     }// </editor-fold>
     
-    protected void render(String file, Map<String, String> parameters) {
+    protected void render(String file, Map<String, Object> parameters) {
         
         try {
             if (parameters != null) {
@@ -83,8 +83,6 @@ abstract public class AbstractController extends HttpServlet implements Controll
             
             renderer.dispatcherFor(filePath)
                     .render(request, response);
-            
-            
         } catch (ServletException ex) {
             Logger.getLogger(AbstractController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
@@ -93,6 +91,6 @@ abstract public class AbstractController extends HttpServlet implements Controll
     }
     
     protected void render(String file) {
-        this.render(file, new HashMap<String, String>());
+        this.render(file, null);
     }
 }

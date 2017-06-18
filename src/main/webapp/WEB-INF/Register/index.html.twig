@@ -1,9 +1,11 @@
 {% extends "../main.html.twig" %}
 {% block body %}
     {% if registerErrors is defined %}
-        {% for error in registerErrors %}
-            
-        {% endfor %}
+        <ul>
+            {% for error in registerErrors %}
+                <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
     {% endif %}
     
     <form method="POST" action="register">

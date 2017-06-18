@@ -1,11 +1,10 @@
 package PkProject.Controller;
 
-public class IndexController extends AbstractController {
+public class ProfileController extends AbstractController {
 
     @Override
     public void doGET() {
-        this.request.setAttribute("test", "dadsadasdasdasdada");
-        this.render("main");
+        this.render("Profile:index");
     }
 
     @Override
