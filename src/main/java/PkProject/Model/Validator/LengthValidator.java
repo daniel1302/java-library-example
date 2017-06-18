@@ -1,5 +1,7 @@
 package PkProject.Model.Validator;
 
+import java.util.ArrayList;
+
 public class LengthValidator extends AbstractValidator {
     private String minMsg = "Wartość w polu %s jest zbyt krótka";
     private String maxMsg = "Wartość w polu %s jest zbyt długa";
@@ -11,8 +13,8 @@ public class LengthValidator extends AbstractValidator {
     
     
     public LengthValidator(
-            String value,
             String fieldName, 
+            String value,
             String fieldRealName,
             int min, 
             int max, 
@@ -28,8 +30,8 @@ public class LengthValidator extends AbstractValidator {
     }
     
     public LengthValidator(
+            String fieldName,
             String value,
-            String fieldName, 
             String fieldRealName,
             int min, 
             int max
@@ -54,6 +56,8 @@ public class LengthValidator extends AbstractValidator {
     
     @Override
     public void validate() {
+        this.errors = new ArrayList<>();
+        
         if (this.value.length() < this.min) {
             this.errors.add(
                     String.format(minMsg, this.fieldRealName)
@@ -62,7 +66,7 @@ public class LengthValidator extends AbstractValidator {
             this.errors.add(
                     String.format(maxMsg, this.fieldRealName)
             );
-        } 
+        }
     }
     
 }
