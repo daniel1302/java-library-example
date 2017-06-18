@@ -1,4 +1,4 @@
-package PkProject;
+package PkProject.Controller;
 
 interface ControllerInterface {
     public void doGET();

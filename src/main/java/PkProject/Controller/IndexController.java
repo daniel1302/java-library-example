@@ -1,4 +1,4 @@
-package PkProject;
+package PkProject.Controller;
 
 public class IndexController extends AbstractController {
 

@@ -1,4 +1,4 @@
-package PkProject;
+package PkProject.Controller;
 
 import PkProject.Model.ViewManager;
 import java.io.IOException;

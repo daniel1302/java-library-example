@@ -1,4 +1,4 @@
-package PkProject;
+package PkProject.Controller;
 
 import PkProject.DAO.UserDAO;
 import PkProject.Entity.User;
