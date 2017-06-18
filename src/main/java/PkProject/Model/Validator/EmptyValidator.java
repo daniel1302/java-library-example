@@ -34,11 +34,8 @@ public class EmptyValidator extends AbstractValidator {
     @Override
     public void validate() {
         this.errors = new ArrayList<>();
-        
-        if (this.value.isEmpty()) {
-            this.errors.add(
-                    String.format(msg, this.fieldRealName)
-            );
+        if (this.value.isEmpty() || this.value.length() < 1) {
+            this.errors.add(String.format(msg, this.fieldRealName));
         }
     }
     

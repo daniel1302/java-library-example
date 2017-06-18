@@ -3,7 +3,7 @@ package PkProject.Model.Validator;
 import java.util.ArrayList;
 
 public class ValidatorChain {
-    private ArrayList<ValidatorInterface> validators;
+    private ArrayList<ValidatorInterface> validators = new ArrayList<>();
     
     public void addValidator(ValidatorInterface e) {
         this.validators.add(e);
