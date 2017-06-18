@@ -10,7 +10,7 @@
     </servlet>
     <servlet>
         <servlet-name>ProfileController</servlet-name>
-        <servlet-class>PkProject.ProfileController</servlet-class>
+        <servlet-class>PkProject.Controller.ProfileController</servlet-class>
     </servlet>
     <servlet>
         <description>Index</description>

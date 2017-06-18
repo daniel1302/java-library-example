@@ -2,7 +2,6 @@ package PkProject.Model;
 
 
 import java.sql.*;
-import java.util.*;
 
 /**
  *
@@ -21,10 +20,8 @@ public class ConnectionManager {
         if (connection != null) {
             return connection;
         }
-        
         try { 
             String url = DBUrl+DBName;
-
 
             // assuming "DataSource" is your DataSource name 
                 Class.forName("com.mysql.jdbc.Driver"); 

@@ -33,7 +33,7 @@ public class User implements Serializable {
     
     private String email;
     
-    private Boolean valid;
+    private Boolean valid = false;
 
     public String getUsername() {
         return username;
