@@ -1,7 +1,7 @@
 package PkProject;
 
 import PkProject.DAO.UserDAO;
-import PkProject.Entity.UserEntity;
+import PkProject.Entity.User;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -19,7 +19,7 @@ public class LoginController extends AbstractController {
         this.response.setContentType("text/html;charset=UTF-8");
         
         try {
-            UserEntity user = new UserEntity();
+            User user = new User();
             
             String username = this.request.getParameter("username");
             String password = this.request.getParameter("password");

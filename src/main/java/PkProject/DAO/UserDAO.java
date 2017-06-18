@@ -1,6 +1,6 @@
 package PkProject.DAO;
 
-import PkProject.Entity.UserEntity;
+import PkProject.Entity.User;
 import PkProject.Model.ConnectionManager;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -10,7 +10,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class UserDAO {
-    public static UserEntity login(UserEntity user) {
+    
+    public static User login(User user) {
         Statement stmt;
         Connection connection = ConnectionManager.getConnection();
         ResultSet rs;
