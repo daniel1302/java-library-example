@@ -34,6 +34,8 @@ public class User implements Serializable {
     private String email;
     
     private Boolean valid = false;
+    
+    private String rank = "user";
 
     public String getUsername() {
         return username;
@@ -82,8 +84,14 @@ public class User implements Serializable {
     public void setValid(Boolean valid) {
         this.valid = valid;
     }
-    
-    
+
+    public String getRank() {
+        return rank;
+    }
+
+    public void setRank(String rank) {
+        this.rank = rank;
+    }
 
     public Long getId() {
         return id;

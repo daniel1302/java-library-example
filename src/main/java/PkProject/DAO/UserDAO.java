@@ -36,7 +36,6 @@ public class UserDAO {
             
             Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
     }
     
     public static Boolean getByLoginOrEmail(String login, String email) {
@@ -86,6 +85,7 @@ public class UserDAO {
                 user.setId(rs.getLong("id"));
                 user.setPassword(rs.getString("pass"));
                 user.setUsername(rs.getString("username"));
+                user.setRank(rs.getString("rank"));
                 user.setValid(true);
             }
         } catch (SQLException ex) {
