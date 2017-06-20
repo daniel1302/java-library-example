@@ -9,6 +9,30 @@
     
 </head>
 <body>
+    <div class="menu">
+    {% if (isLoggedIn == true) %}
+        Jestem zalogowany witaj {{ user.username }}
+        
+        <ul>
+            <li><a href="profile">Ustawienia</a></li>
+            <li><a href="books">Ksiązki<a/></li>
+            <li><a href="logout">Wyloguj się</a></li>
+        
+        
+            {% if user.rank == "admin" %}
+                <li><a href="admin_users">Zarządzaj użytkownikami</a></li>
+                <li><a href="admin_books">Zarządzaj książkami</a><li>
+            {% endif %}
+        
+        </ul>
+    {% else %}
+        <ul>
+            <li><a href="index">Strona główna</a></li>
+            <li><a href="login">Zaloguj się<a/></li>
+            <li><a href="register">Zarejestruj się</a></li>
+        </ul>
+    {% endif %}
+    </div>
     {% block body %}
         
     {% endblock %}

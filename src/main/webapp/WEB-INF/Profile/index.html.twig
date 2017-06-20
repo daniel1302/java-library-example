@@ -1,1 +1,7 @@
-Profil :/
+{% extends "../main.html.twig" %}
+
+{% block body %}
+    Profil :/
+    {{ user.username() }}<br>
+    {{ user.isValid }}<br>
+{% endblock %}

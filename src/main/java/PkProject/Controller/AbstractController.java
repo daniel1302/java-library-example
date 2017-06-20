@@ -1,8 +1,8 @@
 package PkProject.Controller;
 
+import PkProject.Entity.User;
 import PkProject.Model.ViewManager;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -10,6 +10,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import org.jtwig.web.servlet.JtwigRenderer;
 
 /**
@@ -18,6 +19,8 @@ import org.jtwig.web.servlet.JtwigRenderer;
  */
 abstract public class AbstractController extends HttpServlet implements ControllerInterface
 {
+    protected Boolean isExtended = false;
+    
     protected ViewManager viewManager;
     
     protected HttpServletRequest request;
@@ -70,6 +73,7 @@ abstract public class AbstractController extends HttpServlet implements Controll
     }// </editor-fold>
     
     protected void render(String file, Map<String, Object> parameters) {
+        this.extendTwig();
         
         try {
             if (parameters != null) {
@@ -92,5 +96,23 @@ abstract public class AbstractController extends HttpServlet implements Controll
     
     protected void render(String file) {
         this.render(file, null);
+    }
+    
+    protected void extendTwig() {
+        
+        
+        HttpSession session = this.request.getSession(true);
+        User user = (User)session.getAttribute("user");
+        if (user != null && user.isValid()) {
+            request.setAttribute("isLoggedIn", true);
+            request.setAttribute("user", user);
+            System.out.println(user);
+        } else {
+            request.setAttribute("isLoggedIn", false);
+            request.setAttribute("user", new User());
+            System.out.println("not logged in");
+        }
+        
+        this.isExtended = true;
     }
 }

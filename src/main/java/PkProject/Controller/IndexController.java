@@ -5,7 +5,7 @@ public class IndexController extends AbstractController {
     @Override
     public void doGET() {
         this.request.setAttribute("test", "dadsadasdasdasdada");
-        this.render("main");
+        this.render("Index:index");
     }
 
     @Override
