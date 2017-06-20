@@ -6,8 +6,12 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 public class UserDAO {
     
@@ -36,6 +40,38 @@ public class UserDAO {
             
             Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    public static Boolean update(Integer id, HashMap<String, String> data) {
+        if (data.isEmpty()) {
+            return true;
+        }
+        
+        Statement stmt;
+        Connection connection = ConnectionManager.getConnection();
+        
+        
+        try {
+            List<String> params = new ArrayList<>();
+            
+            for (String column : data.keySet()) {
+                params.add(column + " = '"+data.get(column)+ "'");
+            }
+            String joinedParams = params.stream().collect(Collectors.joining(", "));
+            
+            
+            String query = "UPDATE user SET "+ joinedParams + " WHERE id="+id;
+            System.out.println(query);
+            
+            stmt = connection.createStatement();        
+            stmt.executeUpdate(query);
+            
+            return true;
+        } catch (SQLException ex) {            
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return false;
     }
     
     public static Boolean getByLoginOrEmail(String login, String email) {

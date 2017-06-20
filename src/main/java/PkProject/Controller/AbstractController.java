@@ -72,6 +72,17 @@ abstract public class AbstractController extends HttpServlet implements Controll
         return "Short description";
     }// </editor-fold>
     
+    protected User getUserSession() 
+    {
+        HttpSession session = this.request.getSession(true);
+        User user = (User)session.getAttribute("user");
+        if (user != null && user.isValid()) {
+            return user;
+        } 
+        
+        return new User();
+    }
+    
     protected void render(String file, Map<String, Object> parameters) {
         this.extendTwig();
         
@@ -99,19 +110,14 @@ abstract public class AbstractController extends HttpServlet implements Controll
     }
     
     protected void extendTwig() {
-        
-        
-        HttpSession session = this.request.getSession(true);
-        User user = (User)session.getAttribute("user");
-        if (user != null && user.isValid()) {
+        User user = this.getUserSession();
+        if (user.isValid()) {
             request.setAttribute("isLoggedIn", true);
-            request.setAttribute("user", user);
-            System.out.println(user);
         } else {
             request.setAttribute("isLoggedIn", false);
-            request.setAttribute("user", new User());
-            System.out.println("not logged in");
         }
+        
+        request.setAttribute("user", user);
         
         this.isExtended = true;
     }
