@@ -1,45 +1,131 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset=utf-8 />
-    <title></title>
-    {% block stylesheets %}
-        <link rel="stylesheet" type="text/css" media="screen" href="css/master.css" />
-    {% endblock %}
-    
-</head>
-<body>
-    <div class="menu">
-    {% if (isLoggedIn == true) %}
-        Jestem zalogowany witaj {{ user.username }}
-        
-        <ul>
-            <li><a href="profile">Ustawienia</a></li>
-            <li><a href="books">Ksiązki<a/></li>
-            <li><a href="logout">Wyloguj się</a></li>
-        
-        
-            {% if user.rank == "admin" %}
-                <li><a href="admin_users">Zarządzaj użytkownikami</a></li>
-                <li><a href="admin_books">Zarządzaj książkami</a><li>
-            {% endif %}
-        
-        </ul>
-    {% else %}
-        <ul>
-            <li><a href="index">Strona główna</a></li>
-            <li><a href="login">Zaloguj się<a/></li>
-            <li><a href="register">Zarejestruj się</a></li>
-        </ul>
-    {% endif %}
-    </div>
-    {% block body %}
-        
-    {% endblock %}
-    
-    {% block javascripts %}
-        
-    {% endblock %}
-</body>
-</html>
+    <head>
+        <meta charset="UTF-8">
+        <title>RepoCode</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 
+        <meta name="description"
+              content="Szablon panelu administracyjnego przygotowany na przedmiot Technologie Internetowe">
+        <meta name="author" content="Jakub Książek">
+
+        <!-- biblioteka jQuery -->
+        <script src="resources/js/jquery-3.1.0.min.js"></script>
+
+        <!-- style bootstrapa -->
+        <link rel="stylesheet" href="resources/css/bootstrap.min.css"/>
+        <script src="resources/js/bootstrap.min.js"></script>
+
+        {% block css %}
+        <!-- autorskie style -->
+        <link rel="stylesheet" href="resources/css/custom.css"/>
+        {% endblock %}
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+    </head>
+    <body>
+        <div class="container">
+            {% block navigation %}
+                <nav id="custom-bootstrap-menu" class="navbar navbar-default ">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <a class="navbar-brand active" href="index.html">
+                            <span class="glyphicon glyphicon-home" aria-hidden="true" style="color: rgba(255, 255, 255, 1);"></span>
+                        </a>
+                        <button type="button" class="navbar-toggle" data-toggle="collapse"
+                                data-target=".navbar-menubuilder">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                    </div>
+                    <div class="collapse navbar-collapse navbar-menubuilder">
+                        {% if (isLoggedIn == true) %}
+                            <ul class="nav navbar-nav navbar-left">
+                                <li>
+                                    <a href="profile">Ustawienia</a>
+                                </li>
+                                <li>
+                                    <a href="books">Ksiązki</a>
+                                </li>
+                                {% if user.rank == "admin" %}
+                                <li>
+                                    <a href="admin_users">Zarządzaj użytkownikami</a>
+                                </li>
+                                <li>
+                                    <a href="admin_books">Zarządzaj książkami</a>
+                                </li>
+                                {% endif %}
+                            </ul>
+                            <ul class="nav navbar-nav navbar-right">
+                                <li>
+                                    <a class="logout" href="logout">Wyloguj się</a>
+                                </li>
+                            </ul>
+                        {% else %}
+                            <ul class="nav navbar-nav navbar-left">
+                                <li>
+                                    <a href="index">Strona główna</a>
+                                </li>
+                                <li>
+                                    <a href="login">Zaloguj się</a>
+                                </li>
+                                <li>
+                                    <a href="register">Zarejestruj się</a>
+                                </li>
+                            </ul>
+                        {% endif %}
+                    </div>
+                </div>
+            </nav>
+            {% endblock %}
+
+            {% block breadcrumbs %}
+                <div class="row">
+                    <div class="col-md-12">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a href="#">Strona główna</a>
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+            {% endblock %}
+
+            {% block body %}
+
+            {% endblock %}
+
+            {% block javascripts %}
+                <script type="text/javascript">
+                    $(document).ready(function () {
+                        $("div.tab-menu > div.list-group > a").click(function (e) {
+                            e.preventDefault();
+
+                            $(this).siblings('a.active').removeClass("active");
+                            $(this).addClass("active");
+
+                            var $tabContent = $("div.tab > div.tab-content");
+                            var index = $(this).index();
+
+                            $tabContent.removeClass("active");
+                            $tabContent.eq(index).addClass("active");
+                        });
+                    });
+                </script>
+            {% endblock %}
+
+            <footer class="footer">
+                <div class="container">
+                    <p class="text-muted">© 2017 Daniel Hornik, Jakub Książek, Bartłomiej Sarata</p>
+                </div>
+            </footer>
+        </div>
+    </body>
+</html>

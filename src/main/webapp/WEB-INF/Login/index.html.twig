@@ -1,10 +1,15 @@
-{% extends "../main.html.twig" %}
-
+{% extends "../form.html.twig" %}
 
 {% block body %}
-     <form action="login"> 
-            Please enter your username <input type="text" name="username"/><br> 
-            Please enter your password <input type="password" name="password"/> 
-            <input type="submit" value="submit"> 
-        </form> 
+    <h1>Logowanie</h1><br>
+
+    <form name="login-form" id="login-form" action="login">
+        <input name="username" placeholder="Email" value="" type="text" required>
+        <input name="password" placeholder="Hasło" value="" type="password" required>
+        <input name="submit" class="login login-submit" value="Zaloguj się" type="submit">
+    </form>
+
+    <div class="login-help">
+        <a href="index">Powrót do strony głównej</a>
+    </div>
 {% endblock %}
