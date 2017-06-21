@@ -1,7 +1,7 @@
-{% extends "../main.html.twig" %}
-
+{% extends "../form.html.twig" %}
 
 {% block body %}
+    <h1>Rejestracja</h1><br>
     {% if registerErrors is defined %}
         <ul>
             {% for error in registerErrors %}
@@ -9,14 +9,18 @@
             {% endfor %}
         </ul>
     {% endif %}
-    
-    <form method="POST" action="register">
-        Imie: <input type="text" name="firstname"><br>
-        Nazwisko: <input type="text" name="surname"><br>
-        Login: <input type="text" name="username"><br>
-        E-mail: <input type="text" name="email"><br>
-        Hasło: <input type="password" name="pass"><br>
-        Powtórz hasło: <input type="password" name="pass2"><br>
-        <input type="submit" value="Potwierdź" />
+
+    <form method="post" name="login-form" id="login-form" action="register" autocomplete="off">
+        <input name="firstname" placeholder="Imię" type="text" required>
+        <input name="surname" placeholder="Nazwisko" type="text" required>
+        <input name="username" placeholder="Login" type="text" required>
+        <input name="email" placeholder="Email" type="text" required>
+        <input name="pass" placeholder="Hasło" value="" type="password" required>
+        <input name="pass2" placeholder="Powtórz hasło" value="" type="password" required>
+        <input name="submit" class="login login-submit" value="Zarejestruj się" type="submit">
     </form>
+
+    <div class="login-help">
+        <a href="index">Powrót do strony głównej</a>
+    </div>
 {% endblock %}
