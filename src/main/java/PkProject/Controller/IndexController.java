@@ -4,7 +4,9 @@ public class IndexController extends AbstractController {
 
     @Override
     public void doGET() {
-        this.request.setAttribute("test", "dadsadasdasdasdada");
+        this.request.setAttribute("test", "dadsadasdasdasdada");       
+        
+        
         this.render("Index:index");
     }
 
@@ -12,5 +14,4 @@ public class IndexController extends AbstractController {
     public void doPOST() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
 }

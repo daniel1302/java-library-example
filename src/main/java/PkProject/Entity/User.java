@@ -36,6 +36,8 @@ public class User implements Serializable {
     private Boolean valid = false;
     
     private String rank = "user";
+    
+    private Integer verified = 0;
 
     public String getUsername() {
         return username;
@@ -100,6 +102,15 @@ public class User implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
+
+    public Integer getVerified() {
+        return verified;
+    }
+
+    public void setVerified(Integer verified) {
+        this.verified = verified;
+    }
+    
 
     @Override
     public int hashCode() {

@@ -21,6 +21,18 @@
         <servlet-name>IndexController</servlet-name>
         <servlet-class>PkProject.Controller.IndexController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AdminUserController</servlet-name>
+        <servlet-class>PkProject.Controller.AdminUserController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>BookController</servlet-name>
+        <servlet-class>PkProject.Controller.BookController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>BookManageController</servlet-name>
+        <servlet-class>PkProject.Controller.BookManageController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LogoutController</servlet-name>
         <url-pattern>/logout</url-pattern>
@@ -42,9 +54,21 @@
         <url-pattern>/</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-    <servlet-name>default</servlet-name>
-    <url-pattern>/resources/*</url-pattern>
-</servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>/resources/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminUserController</servlet-name>
+        <url-pattern>/adminUsers</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BookController</servlet-name>
+        <url-pattern>/book</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BookManageController</servlet-name>
+        <url-pattern>/book-manage</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30

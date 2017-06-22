@@ -15,6 +15,40 @@ import java.util.stream.Collectors;
 
 public class UserDAO {
     
+    public static ArrayList<User> getList() {
+        ArrayList<User> list = new ArrayList<>();
+        Statement stmt;
+        Connection connection = ConnectionManager.getConnection();
+        ResultSet rs;
+        System.out.println(connection);
+        String query = "SELECT * FROM user ORDER BY id DESC";
+        
+        try {
+            stmt = connection.createStatement();
+        
+            rs = stmt.executeQuery(query);
+            User tmp;
+            while(rs.next()) {
+                tmp = new User();
+                tmp.setId(rs.getLong("id"));
+                tmp.setEmail(rs.getString("email"));
+                tmp.setFirstname(rs.getString("firstname"));
+                tmp.setUsername(rs.getString("username"));
+                tmp.setSurname(rs.getString("surname"));
+                tmp.setRank(rs.getNString("rank"));
+                tmp.setVerified(rs.getInt("verified"));
+                list.add(tmp);
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
+        
+        
+        return list;
+    }
+    
     public static void insert(User user) {
         Statement stmt;
         Connection connection = ConnectionManager.getConnection();
@@ -75,28 +109,11 @@ public class UserDAO {
     }
     
     public static Boolean getByLoginOrEmail(String login, String email) {
-        Statement stmt;
-        Connection connection = ConnectionManager.getConnection();
-        ResultSet rs;
-        System.out.println(connection);
         String query = "SELECT * FROM user WHERE "
                 + " username='"+login+"'"
                 + " OR email='"+email+"'";
         
-        try {
-            stmt = connection.createStatement();
-        
-            rs = stmt.executeQuery(query);
-
-            if (rs.next()) {
-                return true;
-            }
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        return false;
+        return UserDAO.getOne(query) != null;
     }
     
     public static User login(User user) {
@@ -122,6 +139,7 @@ public class UserDAO {
                 user.setPassword(rs.getString("pass"));
                 user.setUsername(rs.getString("username"));
                 user.setRank(rs.getString("rank"));
+                user.setVerified(rs.getInt("verified"));
                 user.setValid(true);
             }
         } catch (SQLException ex) {
@@ -131,5 +149,42 @@ public class UserDAO {
         }
         
         return user;
+    }
+    
+    public static User getUser(int id) {
+        String query = "Select * FROM user WHERE id="+id;
+        
+        return UserDAO.getOne(query);
+    }
+    
+    private static User getOne(String query) {
+         Statement stmt;
+        Connection connection = ConnectionManager.getConnection();
+        ResultSet rs;
+        try {
+            stmt = connection.createStatement();
+        
+            rs = stmt.executeQuery(query);
+
+            if (rs.next()) {
+                User user = new User();
+                user.setEmail(rs.getString("email"));
+                user.setFirstname(rs.getString("firstname"));
+                user.setSurname(rs.getString("surname"));
+                user.setId(rs.getLong("id"));
+                user.setPassword(rs.getString("pass"));
+                user.setUsername(rs.getString("username"));
+                user.setRank(rs.getString("rank"));
+                user.setVerified(rs.getInt("verified"));
+                user.setValid(true);
+                
+                return user;
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return null;
     }
 }

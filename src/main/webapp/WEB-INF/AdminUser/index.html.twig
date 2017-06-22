@@ -1,0 +1,48 @@
+{% extends "../main.html.twig" %}
+
+{% block body %}
+    <h2>Użytkownicy</h2>
+    <p>Aktywuj, wyłącz lub usuń użytkowników</p>
+    
+    {% if message is defined %}
+        <p class="padding-10 bg-success">
+            {{- message -}}
+        </p>
+    {% endif %}
+    <table class="table table-striped">
+      <thead>
+        <tr>
+            <th>ID</th>
+            <th>Imię</th>
+            <th>Nazwisko</th>
+            <th>Login</th>
+            <th>Email</th>
+            <th>Poziom</th>
+            <th width="30%">Opcje</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for user in users %}    
+            
+            <tr>
+                <td>{{- user.id }}</td>
+                <td>{{- user.firstname -}}</td>
+                <td>{{- user.surname -}}</td>
+                <td>{{- user.username -}}</td>
+                <td>{{- user.email -}}</td>
+                <td>{{- user.rank -}}</td>
+                <td>
+                    {% if user.verified == 1 %}
+                        <a href="?toggle-status={{- user.id -}}">dezaktywuj konto</a>
+                    {% else %}
+                        <a href="?toggle-status={{- user.id -}}">aktywuj konto</a>
+                    {% endif %}
+                    
+                </td>
+            </tr>
+            
+        {% endfor %}
+        
+      </tbody>
+    </table>
+{% endblock %}

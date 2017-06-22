@@ -370,3 +370,7 @@ div.tab div.tab-content:not(.active) {
 .table-striped > tbody > tr:nth-child(2n+1) > td {
     background-color: #ffffff;
 }
+
+.padding-10 {
+    padding: 10px;
+}

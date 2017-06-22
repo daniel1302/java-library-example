@@ -28,7 +28,7 @@ abstract public class AbstractController extends HttpServlet implements Controll
     protected HttpServletResponse response;
     
     protected final JtwigRenderer renderer = JtwigRenderer.defaultRenderer();
-    
+        
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -43,6 +43,19 @@ abstract public class AbstractController extends HttpServlet implements Controll
             throws ServletException, IOException {
         this.request = request;
         this.response = response;
+
+        if (
+                (!this.getUserSession().isValid() && this.onlyForLoggedIn() == true) ||
+                (this.onlyForAdmin() && !this.getUserSession().getRank().equals("admin"))
+        ) {
+            try {
+                this.response.sendRedirect("login");
+                return;
+            } catch (IOException ex) {
+                Logger.getLogger(ProfileController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
         doGET();
     }
 
@@ -59,6 +72,19 @@ abstract public class AbstractController extends HttpServlet implements Controll
             throws ServletException, IOException {
         this.request = request;
         this.response = response;
+        
+        if (
+                (!this.getUserSession().isValid() && this.onlyForLoggedIn() == true) ||
+                (this.onlyForAdmin() && !this.getUserSession().getRank().equals("admin"))
+        ) {
+            try {
+                this.response.sendRedirect("login");
+                return;
+            } catch (IOException ex) {
+                Logger.getLogger(ProfileController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
         doPOST();
     }
 
@@ -120,5 +146,13 @@ abstract public class AbstractController extends HttpServlet implements Controll
         request.setAttribute("user", user);
         
         this.isExtended = true;
+    }
+    
+    protected Boolean onlyForLoggedIn() {
+        return false;
+    }
+    
+    protected Boolean onlyForAdmin() {
+        return false;
     }
 }

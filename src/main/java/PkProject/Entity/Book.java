@@ -2,7 +2,7 @@ package PkProject.Entity;
 
 
 public class Book {
-    private Integer id;
+    private Integer id = 0;
     private String title;
     private String isbn;
     private String authors;
