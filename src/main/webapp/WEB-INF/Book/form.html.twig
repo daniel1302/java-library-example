@@ -13,15 +13,51 @@
     {% if message is defined %}
         <p class="bg-success padding-10">{{ message }}</p>
     {% endif %}
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <form method="POST" action="book-manage">
+                <div class="form-group row">
+                    <label class="control-label col-sm-2" for="title">Tytuł:</label>
+                    <div class="col-sm-10">
+                        <input type="hidden" name="id" value="{{- book.id -}}">
+                        <input type="text" name="title" placeholder="Tytuł książki" class="form-control" value="{{- book.title -}}">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="control-label col-sm-2" for="isbn">Numer ISBN:</label>
+                    <div class="col-sm-10">
+                         <input type="text" name="isbn" placeholder="Numer ISBN" value="{{- book.isbn -}}" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="control-label col-sm-2" for="authors">Autorzy</label>
+                    <div class="col-sm-10">
+                         <input type="text" name="authors" placeholder="Autorzy książki" value="{{- book.authors -}}" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="control-label col-sm-2" for="desc">Opis:</label>
+                    <div class="col-sm-10">
+                         <input type="text" name="desc" value="{{- book.description -}}" class="form-control"> 
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="control-label col-sm-2" for="pub_year">Rok wydania:</label>
+                    <div class="col-sm-10">
+                         <input type="text" name="pub_year" placeholder="Rok wydania książki" value="{{- book.publicaitonYear -}}" class="form-control">
+                    </div>
+                </div>
+                    
+                <div class="form-group row">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <input type="submit" name="submit" value="Zapisz" class="btn btn-default" class="form-control">
+                    </div>
+                </div>
+              </form> 
+        </div>
+    </div>  
     
-    <form method="POST" action="book-manage">
-        <input type="hidden" name="id" value="{{- book.id -}}">
-        Tytuł: <input type="text" name="title" value="{{- book.title -}}"> <br>
-        ISBN: <input type="text" name="isbn" value="{{- book.isbn -}}"> <br>
-        Autorzy: <input type="text" name="authors" value="{{- book.authors -}}"> <br>
-        Opis: <input type="text" name="desc" value="{{- book.description -}}"> <br>
-        Rok publikacji: <input type="text" name="pub_year" value="{{- book.publicaitonYear -}}"> <br>
-        <br>
-        <input type="submit" name="submit" value="Zapisz">
+    
+
     </form>
 {% endblock %}
