@@ -4,7 +4,7 @@ import PkProject.DAO.BookDAO;
 import java.util.HashMap;
 
 
-public class BooksController extends AbstractController {
+public class GetBookController extends AbstractController {
 
     protected Boolean needToBeLoggedIn = true;
     HashMap<String, Object> params = new HashMap<>();
@@ -20,6 +20,7 @@ public class BooksController extends AbstractController {
         } else if (page.equals("my-books")) {
             params.put("books", BookDAO.getAvailableList());
         }
+        
         this.render("Book:list", params);
     }
 

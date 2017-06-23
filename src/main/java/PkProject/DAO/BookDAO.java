@@ -15,6 +15,25 @@ import java.util.stream.Collectors;
 
 public class BookDAO {
     
+    public static Boolean delete(Integer id)
+    {
+        Statement stmt;
+        Connection connection = ConnectionManager.getConnection();
+        
+        
+        try {            
+            String query = "DELETE FROM book WHERE id="+id;
+            System.out.println(query);
+            stmt = connection.createStatement();        
+            stmt.executeUpdate(query);
+            
+            return true;
+        } catch (SQLException ex) {            
+            Logger.getLogger(BookDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return false;
+    }
     
     public static Boolean update(Integer id, HashMap<String, String> data) {
         if (data.isEmpty()) {
@@ -116,7 +135,7 @@ public class BookDAO {
         return list;
     }
     
-    public static ArrayList<Book> getAvailableList() {
+    public static ArrayList<Book> getAvailableList(Integer userId) {
         ArrayList<Book> list = new ArrayList<>();
         Statement stmt;
         Connection connection = ConnectionManager.getConnection();
@@ -124,9 +143,19 @@ public class BookDAO {
         try {
             stmt = connection.createStatement();
         
-            rs = stmt.executeQuery("SELECT * FROM book "
-                    + "WHERE status_id IS NULL "
-                    + "ORDER BY id DESC");
+            String query = "SELECT * FROM book "
+                    + "WHERE status_id IS NULL ";
+            
+//            if (userId != null && userId > 0) {
+//                query += "";
+//            }
+//            
+//            query += "ORDER BY id DESC";
+//            
+            
+            rs = stmt.executeQuery(query);
+            
+            
             Book book;
             while (rs.next()) {
                 book = new Book();
@@ -147,6 +176,9 @@ public class BookDAO {
         return list;
     }
             
+    public static ArrayList<Book> getAvailableList() {
+        return BookDAO.getAvailableList(null);
+    }
             
     private static Book getOne(String query) {
         Statement stmt;

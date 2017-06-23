@@ -37,6 +37,10 @@
         <servlet-name>BooksController</servlet-name>
         <servlet-class>PkProject.Controller.BooksController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>GetBookController</servlet-name>
+        <servlet-class>PkProject.Controller.GetBookController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LogoutController</servlet-name>
         <url-pattern>/logout</url-pattern>
@@ -76,6 +80,10 @@
     <servlet-mapping>
         <servlet-name>BooksController</servlet-name>
         <url-pattern>/books</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetBookController</servlet-name>
+        <url-pattern>/getBook</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

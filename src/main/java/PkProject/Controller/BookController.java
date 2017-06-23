@@ -12,6 +12,16 @@ public class BookController extends AbstractController {
     public void doGET() {        
         HashMap<String, Object> params = new HashMap<>();
         
+        String deleteBookId = this.request.getParameter("delete");
+        
+        if (deleteBookId != null && deleteBookId.matches("\\d+")) {
+            Integer bookId = Integer.parseInt(deleteBookId);
+            BookDAO.delete(bookId);
+            params.put("warning", "Ksiażka została usunieta");
+        }
+        
+        
+        
         params.put("books", BookDAO.getList());
         
         this.render("Book:index", params);

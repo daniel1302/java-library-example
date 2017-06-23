@@ -3,37 +3,85 @@
 
 
 {% block body %}
-    Zmień swoje dane:<br>
+    <h1>Zmień swoje dane:</h1><br>
     
     
     {% if profileErrors is defined %}
-        <ul>
-            {% for error in profileErrors %}
-                <li>{{ error }}</li>
-            {% endfor %}
-        </ul>
+        {% for error in profileErrors %}
+            <p class="bg-danger padding-10">{{ error }}</p>
+        {% endfor %}
     {% endif %}
     
     {% if profileMessage is defined %}
-        <div class="message">{{- profileMessage -}}</div>
+        <div class="bg-success padding-10">{{- profileMessage -}}</div>
     {% endif %}
     
-    <form method="post" action="profile">
-        Imie: <input type="text" name="firstname" value="{{- user.firstname -}}"><br>
-        Nazwisko: <input type="text" name="surname" value="{{- user.surname -}}"><br>
-        Login: <input disabled type="text" name="username" value="{{- user.username -}}"><br>
-        E-mail: <input disabled type="text" name="email" value="{{- user.email -}}"><br>
-        <input type="submit" name="userDataSubmit" value="Zmień dane użytkownika">
-    </form>
-        
-        <br><br><br>
-        
-        
-    <form method="post" action="profile">
-        Obecne hasło<input type="password" name="pass" value=""><br>
-        Nowe Hasło: <input type="password" name="newpass" value=""><br>
-        Powtórz hasło: <input type="password" name="newpass2" value=""><br>
-        
-        <input type="submit" name="passwordSubmit" value="Zmień hasło">
-    </form>
+    <div class="row" style="margin-top: 30px;">
+        <div class="col-md-8 col-md-offset-2">
+            <form method="POST" action="profile">
+                <div class="form-group row">
+                    <label class="control-label col-sm-2" for="firstname">Imię: </label>
+                    <div class="col-sm-10">
+                        <input type="text" name="firstname" placeholder="Imię" class="form-control" value="{{- user.firstname -}}">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="control-label col-sm-2" for="surname">Nazwisko:</label>
+                    <div class="col-sm-10">
+                         <input type="text" name="surname" placeholder="surname" class="form-control" value="{{- user.surname -}}">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="control-label col-sm-2" for="username">Login:</label>
+                    <div class="col-sm-10">
+                        <input disabled type="text" name="username" placeholder="Login" class="form-control" value="{{- user.username -}}">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="control-label col-sm-2" for="email">Email:</label>
+                    <div class="col-sm-10">
+                         <input disabled type="text" name="email" value="{{- user.email -}}"  class="form-control">
+                    </div>
+                </div>
+                    
+                <div class="form-group row">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <input type="submit" name="userDataSubmit" value="Zmień dane użytkownika" class="btn btn-default">
+                    </div>
+                </div>
+              </form> 
+        </div>
+    </div>
+    <h1> Zmień hasło</h1>
+    <div class="row" style="margin-top: 20px;">
+        <div class="col-md-8 col-md-offset-2">
+            <form method="POST" action="profile">
+                <div class="form-group row">
+                    <label class="control-label col-sm-2" for="pass">Obecne hasło: </label>
+                    <div class="col-sm-10">
+                        <input type="password" name="pass" value="" class="form-control" autocomplete="off">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="control-label col-sm-2" for="newpass">Nowe hasło:</label>
+                    <div class="col-sm-10">
+                         <input type="password" name="newpass" value="" class="form-control" autocomplete="off">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="control-label col-sm-2" for="newpass2">Powtórz hasło:</label>
+                    <div class="col-sm-10">
+                        <input type="password" name="newpass2" value="" class="form-control" autocomplete="off">
+                    </div>
+                </div>
+                    
+                <div class="form-group row">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <input type="submit" name="passwordSubmit" value="Zmień hasło" class="btn btn-default">
+                    </div>
+                </div>
+              </form> 
+        </div>
+    </div>
+
 {% endblock %}

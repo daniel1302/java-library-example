@@ -6,10 +6,12 @@ public class Status implements Entity {
     public static final Integer TYPE_LOAN = 1;
     
     private Integer id;
-    private User user;
+    private String username;
     private Integer type;
     private Date created;
-
+    private Integer userId;
+    
+    
     public Integer getId() {
         return id;
     }
@@ -18,12 +20,12 @@ public class Status implements Entity {
         this.id = id;
     }
 
-    public User getUser() {
-        return user;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUsername(String user) {
+        this.username = user;
     }
 
     public Date getCreated() {
@@ -40,6 +42,14 @@ public class Status implements Entity {
 
     public void setType(Integer type) {
         this.type = type;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
     
     
