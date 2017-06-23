@@ -116,7 +116,38 @@ public class BookDAO {
         return list;
     }
     
-    
+    public static ArrayList<Book> getAvailableList() {
+        ArrayList<Book> list = new ArrayList<>();
+        Statement stmt;
+        Connection connection = ConnectionManager.getConnection();
+        ResultSet rs;
+        try {
+            stmt = connection.createStatement();
+        
+            rs = stmt.executeQuery("SELECT * FROM book "
+                    + "WHERE status_id IS NULL "
+                    + "ORDER BY id DESC");
+            Book book;
+            while (rs.next()) {
+                book = new Book();
+                book.setTitle(rs.getString("title"));
+                book.setAuthors(rs.getString("authors"));
+                book.setDescription(rs.getString("description"));
+                book.setId(rs.getInt("id"));
+                book.setIsbn(rs.getString("isbn"));
+                book.setPublicaitonYear(rs.getInt("publication_year"));
+                                
+                list.add(book);
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(BookDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return list;
+    }
+            
+            
     private static Book getOne(String query) {
         Statement stmt;
         Connection connection = ConnectionManager.getConnection();

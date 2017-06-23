@@ -1,0 +1,63 @@
+{% extends "../main.html.twig" %}
+
+{% block body %}
+    <style type="text/css">
+        .book {
+            margin-top: 10px;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #204d74;
+        }
+        .book .title {
+            font-size: 1.5em;
+        }
+        .options {
+            padding: 10px;
+        }
+        .options .btn {
+            text-transform: uppercase;
+            width: 250px;
+            padding: 5px;
+            font-size: 1.2em;
+            background: #000;
+            color: #fff;
+        }
+        
+    </style>
+    
+    <h2>Książki</h2>
+    <p>Wypożycz</p>
+    
+  
+    {% if books is empty %}
+        
+        <div class="row">
+            <div class="text-center col-md-12">
+                Brak książek spełniających kryteria
+            </div>
+        </div>
+        
+    {% else %}
+        {% for book in books %}
+            
+            <div class="book row">
+                <div class="title col-md-12">
+                    <b>Tytuł:</b> {{ book.title }}
+                </div>
+                <div class="authors col-md-5">
+                    Autorzy: <b>{{ book.authors }}</b>
+                </div>
+                <div class="publisher col-md-7">
+                    <b>Wydawnictwo:</b> PWN <i>{{- book.publicationYear -}}</i>
+                </div>
+                <div class="description col-md-12">
+                    {{ book.description }}
+                </div>
+                <div class="options col-md-12">
+                    <a class="btn btn-default" href="getBook?id={{- book.id }}">Wyporzycz</a>
+                </div>
+            </div>
+            
+        {% endfor %}
+    {% endif %}
+    
+{% endblock %}

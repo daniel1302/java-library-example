@@ -21,7 +21,7 @@ public class ConnectionManager {
             return connection;
         }
         try { 
-            String url = DBUrl+DBName;
+            String url = DBUrl+DBName+"?useUnicode=true&characterEncoding=utf-8";
 
             // assuming "DataSource" is your DataSource name 
                 Class.forName("com.mysql.jdbc.Driver"); 
