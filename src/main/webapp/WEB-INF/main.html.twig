@@ -21,6 +21,9 @@
         <!-- autorskie style -->
         <link rel="stylesheet" href="resources/css/custom.css"/>
         {% endblock %}
+        {% block subCss %}
+            
+        {% endblock %}
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
@@ -121,7 +124,9 @@
                     });
                 </script>
             {% endblock %}
-
+            {% block subJavascripts %}
+                
+            {% endblock %}
             <footer class="footer">
                 <div class="container">
                     <p class="text-muted">© 2017 Daniel Hornik, Jakub Książek, Bartłomiej Sarata</p>
