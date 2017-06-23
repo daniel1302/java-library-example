@@ -1,6 +1,7 @@
 package PkProject.DAO;
 
 import PkProject.Entity.Book;
+import PkProject.Entity.Status;
 import PkProject.Model.ConnectionManager;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -48,7 +49,13 @@ public class BookDAO {
             List<String> params = new ArrayList<>();
             
             for (String column : data.keySet()) {
-                params.add(column + " = '"+data.get(column)+ "'");
+                if (data.get(column).equals("null")) {
+                    params.add(column + " = null");
+                } else {
+                    params.add(column + " = '"+data.get(column)+ "'");
+                }
+                
+                
             }
             String joinedParams = params.stream().collect(Collectors.joining(", "));
             
@@ -124,7 +131,7 @@ public class BookDAO {
                 book.setId(rs.getInt("id"));
                 book.setIsbn(rs.getString("isbn"));
                 book.setPublicaitonYear(rs.getInt("publication_year"));
-                                
+                book.setStatusId(rs.getInt("status_id"));
                 list.add(book);
             }
             
@@ -142,15 +149,21 @@ public class BookDAO {
         ResultSet rs;
         try {
             stmt = connection.createStatement();
-        
-            String query = "SELECT * FROM book "
-                    + "WHERE status_id IS NULL ";
+             
+            String query = "SELECT b.id, b.title, b.isbn, b.authors, b.description, b.publisher_id, b.status_id, b.publication_year"
+                    + " FROM book AS b "
+                    + " LEFT JOIN status AS s ON s.id=b.status_id "
+                    + " WHERE 1=1 ";
             
-//            if (userId != null && userId > 0) {
-//                query += "";
-//            }
-//            
-//            query += "ORDER BY id DESC";
+            if (userId != null && userId > 0) {
+                query += " AND s.user_id="+userId;
+            } else {
+                query += " AND b.status_id IS NULL ";
+            }
+            
+            query += " ORDER BY id DESC";
+            
+            System.out.println(query);
 //            
             
             rs = stmt.executeQuery(query);
@@ -165,7 +178,7 @@ public class BookDAO {
                 book.setId(rs.getInt("id"));
                 book.setIsbn(rs.getString("isbn"));
                 book.setPublicaitonYear(rs.getInt("publication_year"));
-                                
+                book.setStatusId(rs.getInt("status_id"));
                 list.add(book);
             }
             
@@ -188,7 +201,9 @@ public class BookDAO {
             stmt = connection.createStatement();
         
             rs = stmt.executeQuery(query);
-
+            System.out.println(query);
+            
+            
             if (rs.next()) {
                 Book book = new Book();
                 book.setTitle(rs.getString("title"));
@@ -197,8 +212,18 @@ public class BookDAO {
                 book.setId(rs.getInt("id"));
                 book.setIsbn(rs.getString("isbn"));
                 book.setPublicaitonYear(rs.getInt("publication_year"));
-                                
-                return book;
+                
+                
+                Integer statusId = rs.getInt("status_id");
+                
+                
+                Status s = BookDAO.getStatus(statusId);
+                System.out.println("STAUTUS");
+                System.out.println(s);
+                
+                book.setStatus(s);
+                
+                return book;    
             }
             
         } catch (SQLException ex) {
@@ -206,5 +231,19 @@ public class BookDAO {
         }
         
         return null;
+    }
+    
+    private static Status getStatus(Integer statusId) {
+        Status status;
+                
+        if (statusId != null && statusId > 0) {
+            status = StatusDAO.getById(statusId);
+        } else {
+            status = new Status();
+            status.setId(statusId); 
+        }
+        
+        return status;
+        
     }
 }

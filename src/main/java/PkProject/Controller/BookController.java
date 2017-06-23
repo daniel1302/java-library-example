@@ -20,6 +20,15 @@ public class BookController extends AbstractController {
             params.put("warning", "Ksiażka została usunieta");
         }
         
+        String freekId = this.request.getParameter("free");
+        if (freekId != null && freekId.matches("\\d+")) {
+            Integer fbookId = Integer.parseInt(freekId);
+            HashMap<String, String> data = new HashMap<>();
+            data.put("status_id", "null");
+            
+            BookDAO.update(fbookId, data);
+            params.put("warning", "Ksiażka została uwolniona");
+        }
         
         
         params.put("books", BookDAO.getList());

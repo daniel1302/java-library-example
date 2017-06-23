@@ -14,12 +14,18 @@ public class BooksController extends AbstractController {
         HashMap<String, Object> params = new HashMap<>();
         
         String page = this.request.getParameter("page");
-        
-        if (page == null) {
+        System.out.println(page);
+        if (null == page) {
             params.put("books", BookDAO.getAvailableList());
-        } else if (page.equals("my-books")) {
-            params.put("books", BookDAO.getAvailableList());
+        } else switch (page) {
+            case "my-books":
+                params.put("books", BookDAO.getAvailableList(getUserSession().getId().intValue()));
+                break;            
+            default:
+                params.put("books", BookDAO.getAvailableList());
+                break;
         }
+        
         this.render("Book:list", params);
     }
 

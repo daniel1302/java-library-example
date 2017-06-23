@@ -53,7 +53,10 @@
                     {{ book.description }}
                 </div>
                 <div class="options col-md-12">
-                    <a class="btn btn-default" href="getBook?id={{- book.id }}" onclick="return confirm('Potwierdź wypożyczenie');">Wypożycz</a>
+                    
+                    {% if book.isReserved() == 'false' %}
+                        <a class="btn btn-default" href="getBook?id={{- book.id }}" onclick="return confirm('Potwierdź wypożyczenie');">Wypożycz</a>
+                    {% endif %}
                 </div>
             </div>
             

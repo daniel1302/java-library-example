@@ -1,6 +1,7 @@
 package PkProject.DAO;
 
 import PkProject.Entity.Book;
+import PkProject.Entity.Status;
 import PkProject.Model.ConnectionManager;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -13,7 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
-public class BookDAO {
+public class StatusDAO {
     
     public static Boolean delete(Integer id)
     {
@@ -22,14 +23,14 @@ public class BookDAO {
         
         
         try {            
-            String query = "DELETE FROM book WHERE id="+id;
+            String query = "DELETE FROM status WHERE id="+id;
             System.out.println(query);
             stmt = connection.createStatement();        
             stmt.executeUpdate(query);
             
             return true;
         } catch (SQLException ex) {            
-            Logger.getLogger(BookDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(StatusDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         return false;
@@ -53,7 +54,7 @@ public class BookDAO {
             String joinedParams = params.stream().collect(Collectors.joining(", "));
             
             
-            String query = "UPDATE book SET "+ joinedParams + " WHERE id="+id;
+            String query = "UPDATE status SET "+ joinedParams + " WHERE id="+id;
             System.out.println(query);
             
             stmt = connection.createStatement();        
@@ -61,16 +62,16 @@ public class BookDAO {
             
             return true;
         } catch (SQLException ex) {            
-            Logger.getLogger(BookDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(StatusDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         return false;
     }
         
-    public static Book getById(Integer id) {
-        String query = "SELECT * FROM book WHERE id="+id;
+    public static Status getById(Integer id) {
+        String query = "SELECT * FROM status WHERE id="+id;
         
-        return BookDAO.getOne(query);
+        return StatusDAO.getOne(query);
     }
     
     public static Integer insert(HashMap<String, String> data) {
@@ -86,7 +87,7 @@ public class BookDAO {
         String joinedValues = values.stream().collect(Collectors.joining(", "));
         
         
-        String query = "INSERT INTO book("+joinedKeys+") VALUES("+joinedValues+")";
+        String query = "INSERT INTO status("+joinedKeys+") VALUES("+joinedValues+")";
         
         Statement stmt;
         Connection connection = ConnectionManager.getConnection();
@@ -105,82 +106,8 @@ public class BookDAO {
         
         return null;
     }
-    
-    public static ArrayList<Book> getList() {
-        ArrayList<Book> list = new ArrayList<>();
-        Statement stmt;
-        Connection connection = ConnectionManager.getConnection();
-        ResultSet rs;
-        try {
-            stmt = connection.createStatement();
-        
-            rs = stmt.executeQuery("SELECT * FROM book ORDER BY id DESC");
-            Book book;
-            while (rs.next()) {
-                book = new Book();
-                book.setTitle(rs.getString("title"));
-                book.setAuthors(rs.getString("authors"));
-                book.setDescription(rs.getString("description"));
-                book.setId(rs.getInt("id"));
-                book.setIsbn(rs.getString("isbn"));
-                book.setPublicaitonYear(rs.getInt("publication_year"));
-                                
-                list.add(book);
-            }
             
-        } catch (SQLException ex) {
-            Logger.getLogger(BookDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        return list;
-    }
-    
-    public static ArrayList<Book> getAvailableList(Integer userId) {
-        ArrayList<Book> list = new ArrayList<>();
-        Statement stmt;
-        Connection connection = ConnectionManager.getConnection();
-        ResultSet rs;
-        try {
-            stmt = connection.createStatement();
-        
-            String query = "SELECT * FROM book "
-                    + "WHERE status_id IS NULL ";
-            
-//            if (userId != null && userId > 0) {
-//                query += "";
-//            }
-//            
-//            query += "ORDER BY id DESC";
-//            
-            
-            rs = stmt.executeQuery(query);
-            
-            
-            Book book;
-            while (rs.next()) {
-                book = new Book();
-                book.setTitle(rs.getString("title"));
-                book.setAuthors(rs.getString("authors"));
-                book.setDescription(rs.getString("description"));
-                book.setId(rs.getInt("id"));
-                book.setIsbn(rs.getString("isbn"));
-                book.setPublicaitonYear(rs.getInt("publication_year"));
-                                
-                list.add(book);
-            }
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(BookDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        return list;
-    }
-            
-    public static ArrayList<Book> getAvailableList() {
-        return BookDAO.getAvailableList(null);
-    }
-            
-    private static Book getOne(String query) {
+    private static Status getOne(String query) {
         Statement stmt;
         Connection connection = ConnectionManager.getConnection();
         ResultSet rs;
@@ -188,21 +115,21 @@ public class BookDAO {
             stmt = connection.createStatement();
         
             rs = stmt.executeQuery(query);
-
+            System.out.println(query);
+            
+            
             if (rs.next()) {
-                Book book = new Book();
-                book.setTitle(rs.getString("title"));
-                book.setAuthors(rs.getString("authors"));
-                book.setDescription(rs.getString("description"));
-                book.setId(rs.getInt("id"));
-                book.setIsbn(rs.getString("isbn"));
-                book.setPublicaitonYear(rs.getInt("publication_year"));
-                                
-                return book;
+                Status status = new Status();
+                
+                status.setId(rs.getInt("id"));
+                status.setType(rs.getInt("type"));
+                status.setUserId(rs.getInt("user_id"));
+                
+                return status;
             }
             
         } catch (SQLException ex) {
-            Logger.getLogger(BookDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(StatusDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         return null;

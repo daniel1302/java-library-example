@@ -4,12 +4,14 @@ import java.util.Date;
 
 public class Status implements Entity {
     public static final Integer TYPE_LOAN = 1;
+    public static final Integer TYPE_FREE = 0;
+    public static final Integer TYPE_RESERVED = 2;
     
-    private Integer id;
-    private String username;
-    private Integer type;
+    private Integer id = 0;
+    private String username = "";
+    private Integer type = Status.TYPE_FREE;
     private Date created;
-    private Integer userId;
+    private Integer userId = 0;
     
     
     public Integer getId() {

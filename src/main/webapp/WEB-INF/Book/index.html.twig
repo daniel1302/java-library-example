@@ -44,6 +44,9 @@
                 <td>
                     <a href="book-manage?book-id={{- book.id -}}">edytuj</a> ||                   
                     <a href="?delete={{- book.id -}}" onclick="return confirm('Potwierdź usunięcie');">usuń</a>
+                    {% if book.statusId > 0 %}
+                        || <a href="?free={{- book.id -}}" onclick="return confirm('Potwierdź oznaczenie jako wolna'); ">uwolnij<a/>
+                    {% endif %}
                 </td>
             </tr>
             

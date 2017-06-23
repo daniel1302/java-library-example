@@ -10,7 +10,9 @@ public class Book {
     private Integer publicaitonYear;
     private Publisher publisher;
     private Status status;
-
+    private Integer statusId = 0;
+    
+    
     public Integer getId() {
         return id;
     }
@@ -75,5 +77,27 @@ public class Book {
         this.status = status;
     }
     
-    
+    public Boolean isReserved() {
+        if ((int)this.statusId > 0) {
+            return true;
+        }
+        
+        if (this.status == null) {
+            return false;
+        }
+        
+        if ((int)this.status.getType() != Status.TYPE_FREE) {
+            return true;
+        }
+        
+        return false;
+    }
+
+    public Integer getStatusId() {
+        return statusId;
+    }
+
+    public void setStatusId(Integer statusId) {
+        this.statusId = statusId;
+    }
 }
